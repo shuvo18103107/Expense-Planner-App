@@ -6,6 +6,17 @@ class UserInput extends StatelessWidget {
 
   final titlecontroller = TextEditingController();
   final amountcontroller = TextEditingController();
+
+  void submitData() {
+    final enterTitle = titlecontroller.text;
+    final enterAmount = double.parse(amountcontroller.text);
+    if (enterTitle.isEmpty || enterAmount <= 0) {
+      return;
+    }
+
+    addTrans(enterTitle, enterAmount);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -22,6 +33,7 @@ class UserInput extends StatelessWidget {
               ),
               // onChanged: (val) => titleInput = val,
               controller: titlecontroller,
+              onSubmitted: (_) => submitData(),
 
               // autofocus: true,
             ),
@@ -30,20 +42,19 @@ class UserInput extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: 'Amount',
               ),
+              keyboardType: TextInputType.number,
               // onChanged: (val) => amountInput = val,
               controller: amountcontroller,
+              onSubmitted: (_) => submitData(),
             ),
             FlatButton(
-              child: Text('Add Transcation'),
-              textColor: Colors.purple,
-              onPressed: () {
-                addTrans(
-                    titlecontroller.text, double.parse(amountcontroller.text));
+                child: Text('Add Transcation'),
+                textColor: Colors.purple,
+                onPressed: submitData
 
                 // print(titlecontroller.text);
-                // print(amountcontroller.text);
-              },
-            )
+
+                )
           ],
         ),
       ),

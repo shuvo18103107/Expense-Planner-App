@@ -17,23 +17,25 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
             title: Text('Expense Planner'),
           ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                width: double.infinity,
-                child: Card(
-                  elevation: 5,
-                  color: Colors.blue,
-                  child: Text(
-                    'CHART!',
-                    style: TextStyle(color: Colors.white),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  width: double.infinity,
+                  child: Card(
+                    elevation: 5,
+                    color: Colors.blue,
+                    child: Text(
+                      'CHART!',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
-              ),
-              UserTransaction()
-            ],
+                UserTransaction()
+              ],
+            ),
           ),
         ));
   }
