@@ -10,7 +10,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Home());
+    return MaterialApp(
+        title: 'personal expense',
+        theme:
+            ThemeData(primarySwatch: Colors.purple, accentColor: Colors.amber),
+        debugShowCheckedModeBanner: false,
+        home: Home());
   }
 }
 
@@ -49,42 +54,38 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          appBar: AppBar(
-            actions: [
-              IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () => _addnewTransaction(context))
-            ],
-            title: Text('Expense Planner'),
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  width: double.infinity,
-                  child: Card(
-                    elevation: 5,
-                    color: Colors.blue,
-                    child: Text(
-                      'CHART!',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () => _addnewTransaction(context))
+        ],
+        title: Text('Expense Planner'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              width: double.infinity,
+              child: Card(
+                elevation: 5,
+                color: Colors.blue,
+                child: Text(
+                  'CHART!',
+                  style: TextStyle(color: Colors.white),
                 ),
-                TransactionList(_userTransaction)
-              ],
+              ),
             ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => _addnewTransaction(context)),
-        ));
+            TransactionList(_userTransaction)
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add), onPressed: () => _addnewTransaction(context)),
+    );
   }
 }

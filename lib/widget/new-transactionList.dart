@@ -19,6 +19,7 @@ class _UserInputState extends State<UserInput> {
     if (enterTitle.isEmpty || enterAmount <= 0) {
       return;
     }
+    // using widget we can acess widget class property inside the stat
 
     widget.addTrans(enterTitle, enterAmount);
     Navigator.of(context).pop();
