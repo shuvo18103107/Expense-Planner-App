@@ -1,13 +1,51 @@
+import './widget/transaction_list.dart';
+import './widget/new-transactionList.dart';
 import 'package:flutter/material.dart';
-import './widget/userTransiction.dart';
+import './model/transaction.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // String titleInput;
-  // String amountInput;
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: Home());
+  }
+}
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final List<Transaction> _userTransaction = [
+    Transaction(
+        id: 't1', title: 'New Shoe', amount: 89.36, date: DateTime.now()),
+    Transaction(
+        id: 't2', title: 'New Book', amount: 100.35, date: DateTime.now()),
+  ];
+  void _addTransaction(String txtitle, double txamount) {
+    final newtxt = Transaction(
+        title: txtitle,
+        amount: txamount,
+        id: DateTime.now().toString(),
+        date: DateTime.now());
+
+    setState(() {
+      _userTransaction.add(newtxt);
+      print('new item added');
+    });
+  }
+
+  void _addnewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return UserInput(_addTransaction);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +53,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
+            actions: [
+              IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () => _addnewTransaction(context))
+            ],
             title: Text('Expense Planner'),
           ),
           body: SingleChildScrollView(
@@ -33,10 +76,15 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-                UserTransaction()
+                TransactionList(_userTransaction)
               ],
             ),
           ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => _addnewTransaction(context)),
         ));
   }
 }
