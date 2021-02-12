@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
-class UserInput extends StatelessWidget {
+class UserInput extends StatefulWidget {
   final Function addTrans;
   UserInput(this.addTrans);
 
+  @override
+  _UserInputState createState() => _UserInputState();
+}
+
+class _UserInputState extends State<UserInput> {
   final titlecontroller = TextEditingController();
+
   final amountcontroller = TextEditingController();
 
   void submitData() {
@@ -14,7 +20,8 @@ class UserInput extends StatelessWidget {
       return;
     }
 
-    addTrans(enterTitle, enterAmount);
+    widget.addTrans(enterTitle, enterAmount);
+    Navigator.of(context).pop();
   }
 
   @override
