@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class UserInput extends StatefulWidget {
   final Function addTrans;
@@ -9,13 +10,14 @@ class UserInput extends StatefulWidget {
 }
 
 class _UserInputState extends State<UserInput> {
-  final titlecontroller = TextEditingController();
+  final _titlecontroller = TextEditingController();
 
-  final amountcontroller = TextEditingController();
+  final _amountcontroller = TextEditingController();
+  DateTime _selectedDate;
 
-  void submitData() {
-    final enterTitle = titlecontroller.text;
-    final enterAmount = double.parse(amountcontroller.text);
+  void _submitData() {
+    final enterTitle = _titlecontroller.text;
+    final enterAmount = double.parse(_amountcontroller.text);
     if (enterTitle.isEmpty || enterAmount <= 0) {
       return;
     }
@@ -23,6 +25,20 @@ class _UserInputState extends State<UserInput> {
 
     widget.addTrans(enterTitle, enterAmount);
     Navigator.of(context).pop();
+  }
+
+  void _presentDatePicker() {
+    // showdate picker is future , futures are classes that allows to create object which gives us value in future
+    showDatePicker(
+            context: context,
+            firstDate: DateTime(2020, 6),
+            lastDate: DateTime.now(),
+            initialDate: DateTime.now())
+        .then((pickedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -40,8 +56,8 @@ class _UserInputState extends State<UserInput> {
                 labelText: 'Title',
               ),
               // onChanged: (val) => titleInput = val,
-              controller: titlecontroller,
-              onSubmitted: (_) => submitData(),
+              controller: _titlecontroller,
+              onSubmitted: (_) => _submitData(),
 
               // autofocus: true,
             ),
@@ -52,15 +68,19 @@ class _UserInputState extends State<UserInput> {
               ),
               keyboardType: TextInputType.number,
               // onChanged: (val) => amountInput = val,
-              controller: amountcontroller,
-              onSubmitted: (_) => submitData(),
+              controller: _amountcontroller,
+              onSubmitted: (_) => _submitData(),
             ),
             Container(
               height: 70,
               child: Row(
                 children: [
-                  Text(
-                    'No Date Choosen!',
+                  Expanded(
+                    child: Text(
+                      _selectedDate == null
+                          ? 'No Date Choosen!'
+                          : 'Picked Date:${DateFormat.yMd().format(_selectedDate)}',
+                    ),
                   ),
                   FlatButton(
                     textColor: Theme.of(context).primaryColor,
@@ -68,7 +88,7 @@ class _UserInputState extends State<UserInput> {
                       'Choose Date',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    onPressed: () {},
+                    onPressed: _presentDatePicker,
                   )
                 ],
               ),
@@ -77,7 +97,7 @@ class _UserInputState extends State<UserInput> {
                 child: Text('Add Transcation'),
                 color: Theme.of(context).primaryColor,
                 textColor: Theme.of(context).textTheme.button.color,
-                onPressed: submitData
+                onPressed: _submitData
 
                 // print(titlecontroller.text);
 
