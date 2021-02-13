@@ -19,7 +19,9 @@ class MyApp extends StatelessWidget {
               headline6: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 18,
-                  fontWeight: FontWeight.bold)),
+                  fontWeight: FontWeight.bold),
+              button: TextStyle(color: Colors.white)),
+          // buttonColor: Colors.purple,
           primarySwatch: Colors.purple,
           accentColor: Colors.amber,
           // fontFamily: 'Quicksand',
