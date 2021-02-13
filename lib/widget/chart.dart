@@ -25,7 +25,7 @@ class Chart extends StatelessWidget {
         'day': DateFormat.E().format(weekday).substring(0, 1),
         'amount': totalamount
       };
-    });
+    }).reversed.toList();
   }
 
   // total amount in last 7 days
