@@ -1,3 +1,4 @@
+import './widget/chart.dart';
 import './widget/transaction_list.dart';
 import './widget/new-transactionList.dart';
 import 'package:flutter/material.dart';
@@ -40,11 +41,20 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final List<Transaction> _userTransaction = [
-    Transaction(
-        id: 't1', title: 'New Shoe', amount: 89.36, date: DateTime.now()),
-    Transaction(
-        id: 't2', title: 'New Book', amount: 100.35, date: DateTime.now()),
+    // Transaction(
+    //     id: 't1', title: 'New Shoe', amount: 89.36, date: DateTime.now()),
+    // Transaction(
+    //     id: 't2', title: 'New Book', amount: 100.35, date: DateTime.now()),
   ];
+//get dynamically calculated the property
+  List<Transaction> get _recenttransactionList {
+    return _userTransaction.where((txt) {
+      return txt.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+      // date jodi onno date er poe hoi taile true return kore naile false
+    }).toList();
+    // last 7 din er transaction gula return korbe
+  }
+
   void _addTransaction(String txtitle, double txamount) {
     final newtxt = Transaction(
         title: txtitle,
@@ -82,17 +92,7 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              width: double.infinity,
-              child: Card(
-                elevation: 5,
-                color: Colors.blue,
-                child: Text(
-                  'CHART!',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
+            Chart(_recenttransactionList),
             TransactionList(_userTransaction)
           ],
         ),
