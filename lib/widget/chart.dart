@@ -42,18 +42,26 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
-      child: Row(
-        children: _grouptransactionvalue.map((data) {
-          // per map er jonno ekta chart draw kori row te r sei tar value pass korci
-          // / operator use korle ki typer value pass kori indicate kore dite hbe i mean type of object
-          return Barchart(
-              data['day'],
-              data['amount'],
-              //  ekhn data server e nai tai app restart korle sob data loss hoia jai tai kono transiction thake na tai chart e totalspending  0 thakar karone 0/0  pass korar karone app crush khai tai logic dite hobe
-              _totalSpendInweek == 0.0
-                  ? 0.0
-                  : (data['amount'] as double) / _totalSpendInweek);
-        }).toList(),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: _grouptransactionvalue.map((data) {
+            // per map er jonno ekta chart draw kori row te r sei tar value pass korci
+            // / operator use korle ki typer value pass kori indicate kore dite hbe i mean type of object
+            // flexible use kori ekta roww ba column ba flex er vitorer child gula kototuk space nibe , flexfit.tight diye vujalam ndynamically bar gula create jehutu hocee tai available space er vitore fitted thakte hobe
+            return Flexible(
+              fit: FlexFit.tight,
+              child: Barchart(
+                  data['day'],
+                  data['amount'],
+                  //  ekhn data server e nai tai app restart korle sob data loss hoia jai tai kono transiction thake na tai chart e totalspending  0 thakar karone 0/0  pass korar karone app crush khai tai logic dite hobe
+                  _totalSpendInweek == 0.0
+                      ? 0.0
+                      : (data['amount'] as double) / _totalSpendInweek),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

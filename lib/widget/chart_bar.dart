@@ -10,7 +10,8 @@ class Barchart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('\$${spendingAmount.toStringAsFixed(0)}'),
+        // fittedbox tar child ke available space er vitor fit kore rakhe
+        FittedBox(child: Text('\$${spendingAmount.toStringAsFixed(0)}')),
         SizedBox(
           height: 4,
         ),
