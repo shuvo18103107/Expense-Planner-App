@@ -58,12 +58,12 @@ class _HomeState extends State<Home> {
     // last 7 din er transaction gula return korbe
   }
 
-  void _addTransaction(String txtitle, double txamount) {
+  void _addTransaction(String txtitle, double txamount, DateTime choosenDate) {
     final newtxt = Transaction(
         title: txtitle,
         amount: txamount,
         id: DateTime.now().toString(),
-        date: DateTime.now());
+        date: choosenDate);
 
     setState(() {
       _userTransaction.add(newtxt);

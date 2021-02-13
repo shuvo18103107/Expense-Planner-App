@@ -16,14 +16,20 @@ class _UserInputState extends State<UserInput> {
   DateTime _selectedDate;
 
   void _submitData() {
+    // DateTime _selectedDate;
+
     final enterTitle = _titlecontroller.text;
     final enterAmount = double.parse(_amountcontroller.text);
-    if (enterTitle.isEmpty || enterAmount <= 0) {
+
+    if (enterTitle.isEmpty ||
+        enterAmount <= 0 ||
+        _amountcontroller.text.isEmpty ||
+        _selectedDate == null) {
       return;
     }
     // using widget we can acess widget class property inside the stat
 
-    widget.addTrans(enterTitle, enterAmount);
+    widget.addTrans(enterTitle, enterAmount, _selectedDate);
     Navigator.of(context).pop();
   }
 
