@@ -6,7 +6,8 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactionList;
-  TransactionList(this.transactionList);
+  final Function deleteTransactionList;
+  TransactionList(this.transactionList, this.deleteTransactionList);
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,12 @@ class TransactionList extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline6),
                       subtitle: Text(DateFormat.yMMMd()
                           .format(transactionList[index].date)),
+                      trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                          color: Theme.of(context).errorColor,
+                          // jokhn kono onpress e direct execution hoi mane kono argument expect kore na oi function tokhn direct pointer kore dilei hoi oi function er r na hole ()=> pointervalue(expected argument)
+                          onPressed: () =>
+                              deleteTransactionList(transactionList[index].id)),
                     ),
                   );
                 },

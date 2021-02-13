@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
           // buttonColor: Colors.purple,
           primarySwatch: Colors.purple,
           accentColor: Colors.amber,
+          errorColor: Colors.red,
           // fontFamily: 'Quicksand',
           appBarTheme: AppBarTheme(
               // etar mane default theme er upor override kore ei change gula anbe
@@ -79,6 +80,12 @@ class _HomeState extends State<Home> {
         });
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((doc) => doc.id == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +103,7 @@ class _HomeState extends State<Home> {
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recenttransactionList),
-            TransactionList(_userTransaction)
+            TransactionList(_userTransaction, _deleteTransaction)
           ],
         ),
       ),
