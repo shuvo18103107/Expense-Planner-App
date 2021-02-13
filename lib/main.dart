@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.amber,
           // fontFamily: 'Quicksand',
           appBarTheme: AppBarTheme(
+              // etar mane default theme er upor override kore ei change gula anbe
               textTheme: ThemeData.light().textTheme.copyWith(
                   headline6: TextStyle(
                       fontFamily: 'OpenSans',
