@@ -1,0 +1,93 @@
+expense planner app learning track
+runApp(mainapp)
+mainapp extens StatelessWidget
+statless build method create kore basically proti widget er e build method ace ja call hoi tai eigula const kore dile recall hoi na app er performance bare jehutu ei gula stat change kore na tai const rakhle compiletime eow const thake
+build method ekta kicu return kore like ei app e MaterialApp
+MaterialApp ->
+* debugShowCheckedModeBanner : eta diya debug banner uthai
+* title : normal string ja app e execute hoi na kintu default deowa jai
+* theme : overall app er theming kore 
+        #ThemeData class nei er vitor
+         -> textTheme: app er text control kore ThemeData.light().textTheme.copyWith(
+                    headline6: TextStyle diye style deowa
+                     button:
+              mainly text gular color ba button er color soho default setting ace
+
+         )
+         ->primarySwatch:default color
+         ->accentColor: specific kicu component e primary theme ke override kore like floatingactionbutton etc
+         ->errorColor: specific color error er
+         -> appBarTheme: AppBarTheme use kore appbar er theme deowa jai sob page e jodi appbar thake
+         
+* home : widget return kore app chalu hole ei ta first e call kore eikahne basically statful widget call koraici
+
+
+statful widget understanding 
+build korle buildcontex er context position kore widget er r ei position er karone build korte pare widget tree te
+build call korlo return koralam Scaffold
+*appbar - > action:[list of widget icon er jonno use korci]
+*body ->
+chart->custom widget
+list ->custom widget
+*floatingActionButton
+
+// file structure
+Model -> list er jonno class diye maping korle
+Widget -> custom widget gula thakbe
+main.dart file (root file)
+
+// logic
+// transactionlist e user input theke data niye sei data ekta function diye dorbo erpr setstat diye list e add korbo like listname.add()
+// particular list card delete er logic -> proti ta list e ekta unique id key ace, list e ontap e sei id ta nibo r id ta pass korbo ekta function e sei function pura list e oi id er sathe pathano id match kore pele list er enum property gular modee removewhere diye delete kore dibe.
+list<Map>=[{key:value},{key:value},{key:value}] -- in a map style
+list<class style>=[{name paarameter:value},{name paarameter:value},{name paarameter:value}] -- in a class style
+final use kore value initialize korte hobe custom widget e jate initialize korar por r change na hoi 
+class use kore named parameter diye key set korlam list e 
+
+
+
+
+// code technique and clean code architecture
+* onpressed e like modal ba date picker use korte chaile onk somoi amra reference dei function er tokhn oi function er vitor 
+ void _addnewTransaction() {
+    showModalBottomSheet(
+        context: context, //kon position e eta call hoice
+        builder: (_) {
+          return UserInput(_addTransaction);
+        });
+  }
+   void _presentDatePicker() {
+    // showdate picker is future , futures are classes that allows to create object which gives us value in future
+    showDatePicker(
+            context: context,
+            firstDate: DateTime(2020, 6),
+            lastDate: DateTime.now(),
+            initialDate: DateTime.now())
+        .then((pickedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
+  }
+  ekhn ei gular context property te buildcontext er context argument pass korlei era vuje jabe kon position e eta build hobe r jodi evabe na kori tokhn onpressed e ()=>_presentDatePicker(context)
+  pass kora jete pare , main koha pass korle anoymous function na korle reference
+
+
+
+
+
+*custom widget banano , simple way holo widget lekhar por extrac kore alada kore initialize kora constructor diye oi widget er functionality pass korar jonno
+* body te jodi input property thake se khetre pura body ke SingleChildScrollView diye wrap korle solved hoi 
+* property gulai hover korle vuja jabe ki return kore  like home: property
+*jei file theke onno file e widget call korba sei file e age oi file ta import kore niba
+*imutable mane stat change hoi na like statless widget
+* _function mane particular file er jonno lock kore deowa oi function tai bire theke kew update korte arbe na kintu reference hise indicate korte parbe ,cg eta privat priority
+*get use kore dynamically logic apply kore kaj korte pari r eta ekta kicu return kore r eta function er moto execute kore na ekta kicu return kore
+
+// package i used 
+* intl date -> for formatting the date object
+
+
+
+jokhn kono data dorkar oi data list er vitor map ba onno kono style e rekhe just fetch korlei hoi , get use kore list ba ja kicu chaow return kora jai , function perameter niye setstat call kore kaj korano jai
+
