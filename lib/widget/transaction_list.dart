@@ -1,8 +1,6 @@
-// import 'package:universal_html/html.dart';
-
 import '../model/transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import './transactionitem.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactionList;
@@ -11,6 +9,7 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(transactionList);
     return Container(
         height: 450,
         child: transactionList.isEmpty
@@ -21,40 +20,19 @@ class TransactionList extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                   Container(
-                      height: 200,
+                      height: 315,
                       child: Image.asset('assets/images/waiting.png'))
                 ],
               )
             : ListView.builder(
                 itemBuilder: (ctx, index) {
-                  return Card(
-                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                    elevation: 5,
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: FittedBox(
-                              child:
-                                  Text('\$${transactionList[index].amount}')),
-                        ),
-                      ),
-                      title: Text(transactionList[index].title,
-                          style: Theme.of(context).textTheme.headline6),
-                      subtitle: Text(DateFormat.yMMMd()
-                          .format(transactionList[index].date)),
-                      trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          color: Theme.of(context).errorColor,
-                          // jokhn kono onpress e direct execution hoi mane kono argument expect kore na oi function tokhn direct pointer kore dilei hoi oi function er r na hole ()=> pointervalue(expected argument)
-                          onPressed: () =>
-                              deleteTransactionList(transactionList[index].id)),
-                    ),
-                  );
+                  return TransactionItem(
+                      transactionItem: transactionList[
+                          index], // list er vitor index dore item er jonno listtile e pass korci 1 ta 1 ta kore
+                      deleteTx: deleteTransactionList);
                 },
                 itemCount: transactionList.length,
               ));

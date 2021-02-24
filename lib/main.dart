@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import './widget/chart.dart';
 import './widget/transaction_list.dart';
 import './widget/new-transactionList.dart';
@@ -15,7 +16,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'personal expense',
         theme: ThemeData(
+          // textthemeuse kori pura app er overall text gular ekta theming dite
           textTheme: ThemeData.light().textTheme.copyWith(
+              // default theme er upor override korbe ei theme
+              //r theming use kore holo : Theme.of(context).textTheme.headline6
               headline6: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 18,
@@ -44,6 +48,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // list er vitore object initialize korlam Transaction object jar value class theke astece
   final List<Transaction> _userTransaction = [
     // Transaction(
     //     id: 't1', title: 'New Shoe', amount: 89.36, date: DateTime.now()),
@@ -54,8 +59,9 @@ class _HomeState extends State<Home> {
   List<Transaction> get _recenttransactionList {
     return _userTransaction.where((txt) {
       return txt.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+      //current date dore 7 din piconer date gula nibe
       // date jodi onno date er poe hoi taile true return kore naile false
-    }).toList();
+    }).toList(); //iterable list hiseve jate thake tai tolist
     // last 7 din er transaction gula return korbe
   }
 
@@ -74,7 +80,7 @@ class _HomeState extends State<Home> {
 
   void _addnewTransaction(BuildContext ctx) {
     showModalBottomSheet(
-        context: ctx,
+        context: ctx, //kon position e eta call hoice
         builder: (_) {
           return UserInput(_addTransaction);
         });
@@ -93,13 +99,14 @@ class _HomeState extends State<Home> {
         actions: [
           IconButton(
               icon: Icon(Icons.add),
-              onPressed: () => _addnewTransaction(context))
+              onPressed: () =>
+                  _addnewTransaction(context)) //positioning er jonno context
         ],
         title: Text('Expense Planner'),
       ),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recenttransactionList),
@@ -109,7 +116,12 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add), onPressed: () => _addnewTransaction(context)),
+          //accentcolor er jonno pabe na
+          // hoverColor: Colors.white,
+          child: Icon(Icons.add),
+          onPressed: () => _addnewTransaction(
+              context)), //amar buildcontext er context value diye position pass korlam annoymous function diye
+      //jehutu modal show korabo tai function er perameter e data pass na kore kon position e show korabo setar position diye dilam context value diye // r annoymous function chara use korle just ref dilei hoi
     );
   }
 }

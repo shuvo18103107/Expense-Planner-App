@@ -8,6 +8,7 @@ class Chart extends StatelessWidget {
   Chart(this.recentTransaction);
 
   List<Map<String, Object>> get _grouptransactionvalue {
+    // eta ekta map typer list return korbe
     return List.generate(7, (index) {
       // last 7 days dekhabe currebt date theke suru kore
       final weekday = DateTime.now().subtract(Duration(days: index));
@@ -22,7 +23,9 @@ class Chart extends StatelessWidget {
       print(DateFormat.E().format(weekday));
       print(totalamount);
       return {
-        'day': DateFormat.E().format(weekday).substring(0, 1),
+        'day': DateFormat.E()
+            .format(weekday)
+            .substring(0, 1), //0 index theke suru 1ta pick korbe
         'amount': totalamount
       };
     }).reversed.toList();
@@ -38,7 +41,7 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(_grouptransactionvalue);
+    print(recentTransaction.length);
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
@@ -47,6 +50,8 @@ class Chart extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: _grouptransactionvalue.map((data) {
+            // print(data['day']);
+            // print(data['amount']);
             // per map er jonno ekta chart draw kori row te r sei tar value pass korci
             // / operator use korle ki typer value pass kori indicate kore dite hbe i mean type of object
             // flexible use kori ekta roww ba column ba flex er vitorer child gula kototuk space nibe , flexfit.tight diye vujalam ndynamically bar gula create jehutu hocee tai available space er vitore fitted thakte hobe

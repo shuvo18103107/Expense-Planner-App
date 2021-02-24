@@ -6,6 +6,7 @@ class Transaction {
   final double amount;
   final DateTime date;
   Transaction(
+      // required key diye mendatory value lagbe naile error dekhabe
       {@required this.id,
       @required this.title,
       @required this.amount,
