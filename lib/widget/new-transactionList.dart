@@ -43,7 +43,7 @@ class _UserInputState extends State<UserInput> {
             context: context,
             firstDate: DateTime(2020, 6),
             lastDate: DateTime.now(),
-            initialDate: DateTime.now())
+            initialDate: DateTime.now()) //kon date er upor mark thakbe
         .then((pickedDate) {
       setState(() {
         _selectedDate = pickedDate;

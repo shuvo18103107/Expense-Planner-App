@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
   List<Transaction> get _recenttransactionList {
     return _userTransaction.where((txt) {
       return txt.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
-      //current date dore 7 din piconer date gula nibe
+      //current date dore 7 din piconer date gula nibe same date e jotogulai hok just date gula niya pathabe 7 ta item e je list e thakbe emn na
       // date jodi onno date er poe hoi taile true return kore naile false
     }).toList(); //iterable list hiseve jate thake tai tolist
     // last 7 din er transaction gula return korbe
