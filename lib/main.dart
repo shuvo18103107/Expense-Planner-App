@@ -47,7 +47,7 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   // list er vitore object initialize korlam Transaction object jar value class theke astece
   final List<Transaction> _userTransaction = [
     // Transaction(
@@ -55,6 +55,28 @@ class _HomeState extends State<Home> {
     // Transaction(
     //     id: 't2', title: 'New Book', amount: 100.35, date: DateTime.now()),
   ];
+// app lifecycle check
+  @override
+  void initState() {
+    //this line says whenever my lifecycle changes i want to go to a certain observer and call the didchangeApplifecyclestat methode
+    WidgetsBinding.instance.addObserver(this);
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+// this method is called when the lifecycle of app changes
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  // when that applifecycle stat is not required any more then we have to clear this by using dispose methode
+  @override
+  dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
 //get dynamically calculated the property
   List<Transaction> get _recenttransactionList {
     return _userTransaction.where((txt) {
