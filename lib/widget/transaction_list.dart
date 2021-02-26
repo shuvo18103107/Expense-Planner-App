@@ -27,14 +27,13 @@ class TransactionList extends StatelessWidget {
                       child: Image.asset('assets/images/waiting.png'))
                 ],
               )
-            : ListView.builder(
-                itemBuilder: (ctx, index) {
-                  return TransactionItem(
-                      transactionItem: transactionList[
-                          index], // list er vitor index dore item er jonno listtile e pass korci 1 ta 1 ta kore
-                      deleteTx: deleteTransactionList);
-                },
-                itemCount: transactionList.length,
-              ));
+            : ListView(
+                children: transactionList
+                    .map((data) => TransactionItem(
+                          key: ValueKey(data.id),
+                          transactionItem: data,
+                          deleteTx: deleteTransactionList,
+                        ))
+                    .toList()));
   }
 }
